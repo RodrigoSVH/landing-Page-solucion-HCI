@@ -1,0 +1,86 @@
+# Resultados de pruebas de aceptación
+
+URL probada: file:///tmp/tf/site/landing-page-solucion/pages/index.html
+Fecha: 2026-11-06T01:48:36.346Z
+Resultado global: 78 de 78 pruebas cumplen
+
+| ID prueba | HU | Criterio / escenario | Acción de prueba | Resultado esperado | Resultado obtenido | Estado |
+|---|---|---|---|---|---|---|
+| PA-01 | HU-001 | CA01 | Abrir la página sin interactuar y luego mover el cursor | El contador de tiempo continuo inicia solo al detectar un evento de entrada | Antes: 0 ms; después de mover el cursor: 34 s virtuales | Cumple |
+| PA-02 | HU-001 | CA02 | Simular 5 min de inactividad total | El contador se pausa automáticamente | idle=true; el contador no avanzó (9411 -> 9411 ms) | Cumple |
+| PA-03 | HU-001 | CA03 | Registrar tiempo durante varios segundos | No aparece ningún modal ni diálogo invasivo | Diálogos visibles: 0; alert/confirm: 0 | Cumple |
+| PA-04 | HU-002 | CA01 | Mover el cursor de forma errática y revisar si se usó captura de pantalla | Se mide velocidad y trayectoria sin capturar pantalla | Llamadas a captura de pantalla: 0; dispersión acumulada: 8.6 s | Cumple |
+| PA-05 | HU-002 | CA02 | Comparar movimiento recto con movimiento errático | La entropía de trayectoria distingue ambos casos | Dispersión en trayectoria recta: 0.0 s; errática: 12.8 s | Cumple |
+| PA-06 | HU-002 | CA03 | Mantener movimiento errático hasta superar 90 s virtuales | No se cataloga antes de 90 s; al superarlos el componente de cursor llega al máximo | A los 42 s el componente de cursor era 0.47 (< 1); a los 96 s llegó a 1 | Cumple |
+| PA-07 | HU-003 | CA01 y CA03 | Escribir 20 caracteres y borrar 15 (borrado > 40 %) | Se mide la tasa de borrado y se marca la señal de tecleo | Tasa de borrado: 44 %; componente de tecleo: 1 | Cumple |
+| PA-08 | HU-003 | CA02 | Escribir una frase única y buscarla en todo el almacenamiento y estado | El texto escrito no existe en ningún lugar accesible | Texto encontrado en almacenamiento/estado: false | Cumple |
+| PA-09 | HU-004 | CA01 a CA03 | Provocar 13 pérdidas de foco de la ventana en menos de 60 s | Se detecta alternancia > 12 sin cerrar nada ni mostrar bloqueos | Cambios en 60 s: 13; componente ventanas: 1; bloqueos visibles: 0 | Cumple |
+| PA-10 | HU-006 | CA01 | Activar cada señal por separado | Pesos del índice: tiempo 30 %, ventanas 25 %, tecleo 25 %, cursor 20 % | Índice con solo tiempo / ventanas / tecleo / cursor: 30 / 25 / 25 / 20 | Cumple |
+| PA-11 | HU-006 | CA02 | Forzar índices bajo, medio y alto | La escala muestra Normal, Fatiga moderada y Sobrecarga crítica | Etiquetas: Normal / Fatiga moderada / Sobrecarga crítica | Cumple |
+| PA-12 | HU-006 | CA03 | Esperar más de 60 s virtuales sin interactuar | El índice se recalcula localmente cada 60 s | "Último cálculo" pasó de hace 47 s a hace 17 s (se reinició al recalcular) | Cumple |
+| PA-13 | HU-007 | CA01 | Inspeccionar el control de sensibilidad | Es un slider con 3 niveles | type=range, min=1, max=3, step=1, valor por defecto=Media | Cumple |
+| PA-14 | HU-007 | CA02 | Cambiar la sensibilidad a Baja y a Alta | Los umbrales del algoritmo cambian automáticamente | Baja: "Umbrales: cambios de pestaña > 16 en 60 s · borrado > 50 % en 2 min · dispersión > 120 s." / Alta: "Umbrales: cambios de pestaña > 8 en 60 s · borrado > 30 % en 2 min · dispersión > 60 s." | Cumple |
+| PA-15 | HU-007 | CA03 | Elegir Alta y recargar la página | La preferencia persiste localmente | Valor tras recargar: 3 | Cumple |
+| PA-16 | HU-009 | CA01 | Pulsar el botón Modo Zen de la barra superior | Se activa el Modo Zen desde un botón accesible | Botón en la barra: true; zen activo: true; aria-pressed=true | Cumple |
+| PA-17 | HU-009 | CA02 | Pulsar Ctrl + Shift + Z | El atajo alterna el Modo Zen | Primera pulsación activa: true; segunda desactiva: true | Cumple |
+| PA-18 | HU-009 | CA03 | Leer la duración de la transición CSS del Modo Zen | La transición es de 500 ms | --t-zen=500ms; transition-duration de la barra superior=0.5s, 0.5s | Cumple |
+| PA-19 | HU-010 | CA01 y CA02 | Simular fatiga moderada (sin señal motriz) | Aparece un indicador flotante translúcido, sin sonido y no bloqueante | Posición=fixed; opacidad del fondo=0.94; sonidos=0; diálogos bloqueantes=0 | Cumple |
+| PA-20 | HU-010 | CA03 | No responder a la sugerencia durante 15 s virtuales | La sugerencia se desvanece sola a los 15 s | Visible a los ~5 s virtuales: true; visible a los ~50 s virtuales: false | Cumple |
+| PA-21 | HU-011 | CA01 y CA02 | Activar Modo Zen con fatiga moderada y muestrear la atenuación | La luz baja entre 10 % y 30 % de forma gradual (>= 10 s) | Objetivo 20 %; a 1 s lleva 2 %; duración de transición 10s | Cumple |
+| PA-22 | HU-011 | CA03 | Pulsar Restaurar brillo estándar | El brillo vuelve a 0 % de atenuación con un clic | Atenuación tras un clic: 0 % | Cumple |
+| PA-23 | HU-012 | CA01 y CA02 | Activar Modo Zen, medir la barra superior y pasar el cursor por el borde | Los elementos periféricos se repliegan y reaparecen suavemente con hover | En reposo: transform=matrix(1, 0, 0, 1, 0, -71.5) (opacidad 1, sin transparencia); con hover: transform=none; Paneles minimizados: 6 | Cumple |
+| PA-24 | HU-012 | CA03 | Auditar contraste WCAG AA con axe-core en Modo Zen | Cero violaciones de contraste en lo visible | Violaciones de contraste: 0 (ninguna); verificaciones aprobadas: 1 | Cumple |
+| PA-25 | HU-014 | CA01 y CA02 | Activar Vista de tarea única con texto escrito en el documento | El documento ocupa la pantalla y los demás paneles se minimizan sin cerrarse | Posición=fixed; ancho=1366/1366; panel de estado display=none pero sigue en el DOM=true; texto conservado=true | Cumple |
+| PA-26 | HU-014 | CA03 | Pulsar Alt + Shift + F dos veces | El atajo alterna entre vista única y normal | Primera pulsación activa: true; segunda restaura: true | Cumple |
+| PA-27 | HU-016 | CA01 | Activar Modo Zen y buscar el botón de salida | Hay un botón visible Salir de Modo Zen | Visible: true; texto: "Salir de Modo Zen" | Cumple |
+| PA-28 | HU-016 | CA02 | Salir del Modo Zen con trabajo en curso | Restablece en menos de 300 ms sin reiniciar nada | Salida en 15 ms; texto conservado: true; contador continuo 1250 -> 1774 ms | Cumple |
+| PA-29 | HU-016 | CA03 | Salir del Modo Zen | No aparece ningún diálogo de advertencia | Diálogos visibles: 0; alert/confirm del navegador: 0 | Cumple |
+| PA-30 | HU-017 | CA01 a CA03 | Simular tensión motriz; ignorar y luego posponer | Globo translúcido con 2 opciones; no bloquea; posponer evita repetir 15 min | Opciones: Tomar pausa (60 s) / Posponer (15 min); diálogos bloqueantes: 0; reaparece tras posponer: false | Cumple |
+| PA-31 | HU-018 | CA01 | Iniciar la pausa y muestrear la fase a los 2 s, 5 s y 8 s virtuales | Ritmo 4 s inhala, 2 s sostén, 6 s exhala | Fases observadas a ~2, 5 y 8 s virtuales: Inhala, Sostén, Exhala | Cumple |
+| PA-32 | HU-018 | CA02 | Iniciar la pausa y revisar la cuenta regresiva y su finalización | Temporizador circular de 60 a 0 s | Inicio 01:00; a ~20 s virtuales 00:40; anillo desplazado 116; cerró sola: true; registrada como completa: true | Cumple |
+| PA-33 | HU-018 | CA03 | Revisar indicadores textuales y la animación de la esfera | Texto de fase anunciado y escala de la esfera cambia suavemente | aria-live de la fase=polite; transformación 1=matrix(0.659, 0, 0, 0.659, 0, 0); transformación 2=matrix(0.844, 0, 0, 0.844, 0, 0) | Cumple |
+| PA-34 | HU-020 | CA01 a CA03 | Dejar el cursor en una posición, pausar, saltar y pulsar Volver a mi tarea | Se restaura la posición y se resalta suavemente el espacio de trabajo | Marcador guardado: caret 10; botón visible: true; tras volver: foco=documento, caret=10, resaltado=true | Cumple |
+| PA-35 | HU-021 | CA01 y CA02 | Iniciar la pausa y pulsar Saltar ejercicio | Cierre inmediato (< 200 ms) y sin penalización | Botón visible: true; cierre en 3 ms; mensaje: "Saltaste el ejercicio. Sin problema." | Cumple |
+| PA-36 | HU-021 | CA03 | Saltar la pausa y volver a provocar sobrecarga | No hay nuevas alertas durante los siguientes 20 min | Silencio activo: true; sugerencias mostradas: false | Cumple |
+| PA-37 | HU-024 | CA01 a CA03 | Saltar la pausa y observar el mensaje de refuerzo | Frase constructiva sin juicios que se cierra a los 4 s | Mensaje: "Pausar también es avanzar: tu atención rinde más cuando descansa."; visible a los ~3 s: true; visible a los ~6 s: false | Cumple |
+| PA-38 | HU-026 | CA01 | Fraccionar un entregable | Se generan hasta 5 micro-hitos | Micro-hitos generados: 5 | Cumple |
+| PA-39 | HU-026 | CA02 | Fraccionar con los 4 tipos de trabajo | Todos los micro-hitos duran menos de 45 min | Duración máxima por tipo (informe, programación, estudio, proyecto): 40, 40, 40, 40 min | Cumple |
+| PA-40 | HU-026 | CA03 | Marcar 2 de 5 micro-hitos | La barra de progreso refleja el avance acumulado | Texto: "2 de 5 completados"; aria-valuenow=40 | Cumple |
+| PA-41 | HU-026 | Validación | Enviar el formulario de micro-hitos vacío | Se muestra un error asociado al campo | Error visible: true; aria-invalid=true; mensaje: "Escribe el nombre del entregable (mínimo 3 caracteres)." | Cumple |
+| PA-42 | HU-028 | CA01 | Ingresar metas de 30 y 100 minutos | La meta se ajusta al rango de 45 a 90 min | 30 -> 45; 100 -> 90; 60 -> 60 | Cumple |
+| PA-43 | HU-028 | CA02 y CA03 | Iniciar y superar la meta | Aviso visual suave y conteo en positivo sin bloquear | Antes de la meta: 00:01; después: +00:02; aviso en barra: true; bloqueos: 0; se puede seguir trabajando: true | Cumple |
+| PA-44 | HU-031 | CA01 | Pulsar Ctrl + J | Se abre el bloc con foco listo para escribir | Bloc visible: true; foco en: notas-texto | Cumple |
+| PA-45 | HU-031 | CA02 | Escribir una nota y esperar | Se guarda sola, localmente y sin pedir título | Guardada en localStorage: true; campo de título: false | Cumple |
+| PA-46 | HU-031 | CA03 | Pulsar Escape con el bloc abierto | Cierre instantáneo y retorno del foco | Cerrado: true en 0.8 ms; foco devuelto a: btn-abrir-notas | Cumple |
+| PA-47 | HU-035 | CA01 | Cargar datos de ejemplo | Se dibuja un gráfico de barras estudio vs pausas | Barras: 14; aria-label: "Gráfico de barras. Estudio total 1020 minutos y pausas 189 minutos en el periodo semana." | Cumple |
+| PA-48 | HU-035 | CA02 | Cambiar el filtro entre Día, Semana y Mes | El gráfico cambia de periodo | Barras por periodo: día 2, semana 14, mes 60 | Cumple |
+| PA-49 | HU-035 | CA03 | Revisar el indicador de equilibrio con datos de ejemplo | Muestra la proporción de pausas frente al valor sugerido | Indicador: "⚠ Por debajo de lo sugerido: tus pausas equivalen al 19 % del tiempo de estudio (sugerido: 20 % o más)." | Cumple |
+| PA-50 | HU-036 | CA01 | Pulsar Cerrar jornada | Aparecen 5 estados anímicos | Estados disponibles: 5 | Cumple |
+| PA-51 | HU-036 | CA02 | Registrar con un clic y verificar Omitir | Un clic registra y la opción Omitir está visible | Omitir visible: true; registros: 1; panel cerrado tras un clic: true | Cumple |
+| PA-52 | HU-036 | CA03 | Estudiar unos segundos y registrar ánimo | El registro queda vinculado a las horas trabajadas | estudioMin=0.84; historial: "6/11/2026 · 😐 Neutral · 0 h 01 min trabajados" | Cumple |
+| PA-53 | HU-037 | CA01 a CA03 | Completar una pausa y saltar otra | Contador semanal de ejercicios, minutos en calma y mensaje positivo | Tras completar: 1; tras saltar otra: 1; minutos en calma: 1,1; mensaje: "¡Bien! Esta semana ya cuidaste tu atención 1 vez. Seguimos a tu ritmo." | Cumple |
+| PA-54 | HU-043 | CA01 a CA03 | Usar todas las funciones y contar peticiones de red; intentar enviar datos | Cero peticiones; el navegador bloquea cualquier envío; indicador visible | Peticiones tras la carga: 0; contador interno: 0; CSP connect-src 'none'; envío externo bloqueado por el navegador: true; indicador: "🔒 Privacidad 100% en tu dispositivo" | Cumple |
+| PA-55 | HU-044 | CA01 y CA02 | Auditar los oyentes de teclado registrados | No existen oyentes keypress/keyup ni captura de valores de tecla | Oyentes en document: keypress=0, keyup=0, keydown=2 (atajos y trampa de foco), input=1; "xyz" presente en estado: false | Cumple |
+| PA-56 | HU-044 | CA03 | Buscar el manifiesto de privacidad en la interfaz | Se muestra de forma transparente y verificable | Manifiesto presente: true; inspector muestra "teclas_o_caracteres: nunca se registran": true | Cumple |
+| PA-57 | HU-045 | CA01 | Buscar la opción de borrado | Existe el botón Borrar todos mis datos de estudio | Visible: true; texto: "Borrar todos mis datos de estudio" | Cumple |
+| PA-58 | HU-045 | CA02 | Pulsar borrar y cancelar | Aparece una confirmación y cancelar no borra nada | Rol=alertdialog; confirmación visible: true; datos intactos tras cancelar: true | Cumple |
+| PA-59 | HU-045 | CA03 | Confirmar el borrado con datos, ánimo y notas guardados | Purga total e instantánea del almacenamiento local | Claves antes: 1; después: 0; purga en 4 ms; gráfico: "Aún no hay datos. Usa la demo o carga datos de ejemplo." | Cumple |
+| PA-60 | HU-046 | CA01 | Inspeccionar el interruptor de monitoreo | Es un switch accesible que alterna el monitoreo | Inicial: switch/true; tras pulsar: aria-checked=false | Cumple |
+| PA-61 | HU-046 | CA02 | Pausar el monitoreo y luego escribir y mover el cursor | Se retiran los oyentes y no se registra nada | Oyentes input+mousemove: 2 -> 0; listeners internos=0; borrado=0; tiempo continuo=0 ms | Cumple |
+| PA-62 | HU-046 | CA03 | Alternar y leer estado y color | Activo en verde, En pausa en gris, con texto | Activo: Activo rgb(47, 107, 63); En pausa: En pausa rgb(95, 93, 73) | Cumple |
+| PA-63 | HU-047 | CA01 | Elegir 30 minutos y activar el Modo Examen | La duración es configurable y se informa en pantalla | Opciones: 30,60,90,120; estado: "Activo por 30 minutos. No habrá sugerencias ni avisos."; chip: "Modo Examen activo · termina en 29:58" | Cumple |
+| PA-64 | HU-047 | CA02 | Con el Modo Examen activo, provocar sobrecarga y tensión motriz | No aparece ninguna sugerencia ni modal | Sugerencia previa: true; toasts tras activar: 0; toasts con sobrecarga durante el examen: 0 | Cumple |
+| PA-65 | HU-047 | CA03 | Activar examen de 30 min con reloj acelerado | Se desactiva solo al expirar el tiempo | Chip oculto: true; activo: false; mensaje: "El tiempo terminó: Modo Examen desactivado automáticamente." | Cumple |
+| PA-66 | HU-048 | CA01 | Buscar botones, enlaces o secciones de supervisión docente | No existe ningún panel ni reporte de supervisión | Controles de supervisión: 0; elementos con id/clase de supervisión: 0; tabla de acceso: TúTodo, siempre / Docentes y tutoresNinguno: no existe un panel de supervisión / Equipo de FocusSyncNinguno: no hay servidor | Cumple |
+| PA-67 | HU-048 | CA02 | Buscar el manifiesto ético | Se declara el respeto a la autonomía estudiantil | El manifiesto indica que docentes y tutores pueden recomendarlo "como autocuidado, nunca como vigilancia" | Cumple |
+| PA-68 | HU-048 | CA03 | Usar la demo y verificar transmisión a terceros | Cero transmisión de reportes | Peticiones de red tras la carga: 0; contador interno: 0 | Cumple |
+| PA-69 | HU-049 | CA01 | Ingresar frecuencias de 30 y 200 minutos | El selector se limita al rango de 45 a 150 | 30 -> 45; 200 -> 150; 90 -> 90 | Cumple |
+| PA-70 | HU-049 | CA02 | Elegir 130 y luego 120 minutos | Aparece el consejo pedagógico solo si supera 120 min | Consejo visible con 130: true; con 120: false | Cumple |
+| PA-71 | HU-049 | CA03 | Simular 60 min continuos con frecuencia base de 60 y de 120 | El peso del tiempo en el índice se modula por la frecuencia | Índice con 60 min continuos: frecuencia 60 -> 30; frecuencia 120 -> 15 | Cumple |
+| PA-72 | Transversal | Accesibilidad | Auditar la página con axe-core (WCAG 2.1 A y AA) | Cero violaciones en el estado inicial | Violaciones: 0 ; reglas aprobadas: 36 | Cumple |
+| PA-73 | Transversal | Accesibilidad | Auditar con axe-core con el diálogo de respiración abierto | Cero violaciones en el diálogo modal | Violaciones: 0  | Cumple |
+| PA-74 | Transversal | Teclado | Pulsar Tab desde el inicio y revisar el foco | El primer foco es el enlace para saltar al contenido, con indicador visible | Primer foco: "Saltar al contenido principal"; contorno: solid 3px | Cumple |
+| PA-75 | Transversal | Accesibilidad | Verificar etiquetas de formularios y textos alternativos | Todo campo tiene etiqueta y todo SVG informativo tiene nombre | Campos revisados: 14, sin etiqueta: 0; SVG informativos: 2, sin nombre: 0 | Cumple |
+| PA-76 | Transversal | Responsive | Revisar el desbordamiento horizontal en 4 anchos de pantalla | No aparece scroll horizontal en escritorio, laptop, tablet y móvil | Exceso de ancho: 1366px: 0 / 1024px: 0 / 768px: 0 / 390px: 0 | Cumple |
+| PA-77 | Transversal | Responsive | En 390 px abrir el menú de navegación | El menú se colapsa y se abre con un botón accesible | Menú oculto al inicio: true; botón visible: true; abierto tras pulsar: true; aria-expanded=true | Cumple |
+| PA-78 | Transversal | Accesibilidad | Emular preferencia de movimiento reducido | Las animaciones y transiciones se reducen al mínimo | transition-duration de botones con movimiento reducido: 1e-05s | Cumple |

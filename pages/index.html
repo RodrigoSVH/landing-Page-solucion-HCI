@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="description" content="FocusSync es una interfaz adaptativa que ayuda a estudiantes universitarios a reducir la sobrecarga cognitiva con intervenciones sutiles, voluntarias y 100% locales.">
+<title>FocusSync | Estudia con calma, sin vigilancia</title>
+<link rel="icon" href="../favicon.ico">
+<link rel="stylesheet" href="../css/styles.css">
+<script src="../js/main.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+
+<div id="atenuacion" class="atenuacion" aria-hidden="true"></div>
+
+<header class="topbar peripheral" id="barra-superior" role="banner">
+  <div class="topbar__inner">
+    <a class="brand" href="#inicio" aria-label="FocusSync, ir al inicio">
+      <svg class="brand__logo" viewBox="0 0 32 32" role="img" aria-label="Logotipo de FocusSync">
+        <rect width="32" height="32" rx="8" fill="currentColor"/>
+        <circle cx="16" cy="16" r="9" fill="none" stroke="#FAF8EC" stroke-width="2.5"/>
+        <circle cx="16" cy="16" r="3.5" fill="#FAF8EC"/>
+      </svg>
+      <span>FocusSync</span>
+    </a>
+
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">
+      <span class="menu-toggle__icon" aria-hidden="true"></span>
+      <span class="sr-only">Abrir menú de navegación</span>
+    </button>
+
+    <nav class="nav" id="menu-principal" aria-label="Navegación principal">
+      <ul>
+        <li><a href="#problema">Problema</a></li>
+        <li><a href="#demo">Monitoreo</a></li>
+        <li><a href="#zen">Modo Zen</a></li>
+        <li><a href="#pausas">Pausas</a></li>
+        <li><a href="#organizacion">Organización</a></li>
+        <li><a href="#bienestar">Bienestar</a></li>
+        <li><a href="#privacidad">Privacidad</a></li>
+      </ul>
+    </nav>
+
+    <div class="topbar__actions">
+      <button class="btn btn--ghost" id="btn-zen-barra" type="button" aria-pressed="false" data-hu="HU-009">
+        <span aria-hidden="true">☾</span> Modo Zen <kbd>Ctrl+Shift+Z</kbd>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="zenbar" id="zenbar" hidden>
+  <span class="zenbar__title"><span aria-hidden="true">☾</span> Modo Zen activo</span>
+  <span class="zenbar__hint">Pasa el cursor por los bordes para ver menús</span>
+  <button class="btn btn--outline" id="btn-salir-zen" type="button" data-hu="HU-016">Salir de Modo Zen</button>
+</div>
+
+<div class="status-strip" id="franja-estado" role="region" aria-label="Estado de FocusSync">
+  <span class="chip" id="chip-monitoreo" data-state="activo"><span class="chip__dot" aria-hidden="true"></span><span id="chip-monitoreo-texto">Monitoreo activo</span></span>
+  <span class="chip" id="chip-privacidad" data-hu="HU-043"><span aria-hidden="true">🔒</span> Privacidad 100% en tu dispositivo</span>
+  <span class="chip chip--exam" id="chip-examen" hidden data-hu="HU-047"></span>
+  <span class="chip chip--quiet" id="chip-silencio" hidden></span>
+  <span class="chip chip--sim" id="chip-simulacion" hidden>Simulación activa</span>
+</div>
+
+<main id="contenido" tabindex="-1">
+
+<!-- ===================== HERO ===================== -->
+<section class="hero peripheral-soft" id="inicio" aria-labelledby="titulo-hero">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <p class="eyebrow">Interfaz adaptativa para estudiantes universitarios</p>
+      <h1 id="titulo-hero">Estudia con calma. Sin alarmas, sin vigilancia.</h1>
+      <p class="lead">FocusSync reconoce señales de sobrecarga mientras trabajas y te ofrece pausas y simplificaciones <strong>solo si tú quieres</strong>. Todo se procesa en tu equipo: nada sale de tu dispositivo.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#demo">Probar la demo</a>
+        <a class="btn btn--outline" href="#privacidad">Cómo cuidamos tus datos</a>
+      </div>
+      <ul class="hero__points" aria-label="Principios de FocusSync">
+        <li>Sugerencias sutiles, nunca bloqueos</li>
+        <li>Sin registro de texto ni teclas</li>
+        <li>Docentes y tutores no tienen acceso</li>
+      </ul>
+    </div>
+    <figure class="hero__figure">
+      <svg viewBox="0 0 360 260" role="img" aria-labelledby="hero-svg-t hero-svg-d">
+        <title id="hero-svg-t">Esfera de respiración guiada</title>
+        <desc id="hero-svg-d">Una esfera verde oliva rodeada de anillos concéntricos que representa la guía de respiración de 60 segundos de FocusSync.</desc>
+        <rect x="0" y="0" width="360" height="260" rx="24" fill="#FAF8EC"/>
+        <circle cx="180" cy="130" r="100" fill="none" stroke="#D6D3B8" stroke-width="2"/>
+        <circle cx="180" cy="130" r="78" fill="none" stroke="#B9B692" stroke-width="2"/>
+        <circle cx="180" cy="130" r="56" fill="#6B6A4E"/>
+        <text x="180" y="136" text-anchor="middle" font-size="18" font-weight="700" fill="#FFFFFF" font-family="system-ui,sans-serif">Inhala</text>
+        <text x="180" y="240" text-anchor="middle" font-size="13" fill="#5F5D49" font-family="system-ui,sans-serif">4 s inhala · 2 s sostén · 6 s exhala</text>
+      </svg>
+      <figcaption>La guía de respiración dura 60 segundos y puedes saltarla cuando quieras.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== PROBLEMA ===================== -->
+<section class="section peripheral-soft" id="problema" aria-labelledby="titulo-problema">
+  <div class="container">
+    <h2 id="titulo-problema">El problema que atendemos</h2>
+    <div class="grid grid--3">
+      <article class="card stat">
+        <p class="stat__num" aria-label="Más de 80 por ciento">+80 %</p>
+        <p>de estudiantes universitarios peruanos encuestados reporta afectación por sobrecarga durante el ciclo académico (Cassaretto et al., 2021).</p>
+      </article>
+      <article class="card">
+        <h3>Lo que hacen las herramientas actuales</h3>
+        <p>Bloquean sitios, miden tiempo con cronómetros rígidos o castigan al salir de la app. No distinguen si estás concentrado o bloqueado.</p>
+      </article>
+      <article class="card">
+        <h3>Lo que propone FocusSync</h3>
+        <p>Detecta señales de tensión en tu forma de usar el equipo y sugiere, con amabilidad, simplificar la pantalla o respirar un minuto.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MONITOREO / DEMO ===================== -->
+<section class="section" id="demo" aria-labelledby="titulo-demo">
+  <div class="container">
+    <h2 id="titulo-demo">Monitoreo pasivo y sensible a tu ritmo</h2>
+    <p class="section__intro">Escribe o mueve el cursor en el espacio de trabajo. FocusSync mide <em>cómo</em> interactúas (tiempos, borrados, cursor, cambios de pestaña), <strong>nunca qué escribes</strong>.</p>
+
+    <div class="demo-grid">
+      <!-- Panel de estado -->
+      <article class="card" id="panel-estado" aria-labelledby="t-estado">
+        <h3 id="t-estado">Estado cognitivo actual</h3>
+
+        <div class="switch-row">
+          <button type="button" role="switch" aria-checked="true" id="sw-monitoreo" class="switch" data-hu="HU-046" aria-labelledby="lbl-monitoreo">
+            <span class="switch__knob" aria-hidden="true"></span>
+          </button>
+          <span id="lbl-monitoreo">Monitoreo adaptativo</span>
+          <span class="state-tag" id="tag-monitoreo" data-state="activo">Activo</span>
+        </div>
+
+        <div class="level" id="nivel" data-level="normal" data-hu="HU-006" role="status" aria-live="polite">
+          <span class="level__label">Nivel actual:</span>
+          <strong id="nivel-texto">Normal</strong>
+          <span class="level__score">Índice <span id="indice-valor">0</span> / 100</span>
+        </div>
+        <div class="meter" role="progressbar" aria-label="Índice de sobrecarga cognitiva" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="meter-indice">
+          <div class="meter__fill" id="meter-fill"></div>
+        </div>
+        <p class="muted small">Recalculado localmente cada 60 s (último cálculo: <span id="ultimo-calculo">hace 0 s</span>).</p>
+
+        <dl class="metrics" aria-label="Señales medidas">
+          <div data-hu="HU-001"><dt>Tiempo continuo</dt><dd id="m-tiempo">0:00:00</dd></div>
+          <div data-hu="HU-004"><dt>Cambios de pestaña (60 s)</dt><dd id="m-ventanas">0</dd></div>
+          <div data-hu="HU-003"><dt>Borrado al teclear (2 min)</dt><dd id="m-borrado">0 %</dd></div>
+          <div data-hu="HU-002"><dt>Dispersión del cursor</dt><dd id="m-cursor">0 s</dd></div>
+        </dl>
+        <p class="muted small" id="aviso-2h" hidden>Llevas más de 2 horas continuas. Considera una pausa cuando te sirva.</p>
+
+        <div class="sens" data-hu="HU-007">
+          <label for="sensibilidad">Sensibilidad de detección: <strong id="sens-texto">Media</strong></label>
+          <input type="range" id="sensibilidad" min="1" max="3" step="1" value="2" aria-valuetext="Media" list="sens-marcas">
+          <datalist id="sens-marcas"><option value="1" label="Baja"></option><option value="2" label="Media"></option><option value="3" label="Alta"></option></datalist>
+          <div class="sens__scale" aria-hidden="true"><span>Baja</span><span>Media</span><span>Alta</span></div>
+          <p class="muted small" id="umbrales-texto">Umbrales: cambios de pestaña &gt; 12 en 60 s · borrado &gt; 40 % en 2 min · dispersión &gt; 90 s.</p>
+        </div>
+
+        <div class="freq" data-hu="HU-049">
+          <label for="frecuencia">Frecuencia base de sugerencias (minutos)</label>
+          <div class="freq__row">
+            <input type="number" id="frecuencia" min="45" max="150" step="5" value="120" inputmode="numeric" aria-describedby="frecuencia-ayuda">
+            <span class="muted small">entre 45 y 150</span>
+          </div>
+          <p class="muted small" id="frecuencia-ayuda">Define cada cuánto FocusSync puede volver a sugerirte algo y desde cuándo el tiempo continuo pesa por completo en el índice.</p>
+          <p class="note" id="frecuencia-consejo" role="status" hidden>Consejo pedagógico: más de 120 minutos seguidos aumentan la fatiga. Intercalar pausas cortas ayuda a sostener la atención.</p>
+        </div>
+      </article>
+
+      <!-- Espacio de trabajo -->
+      <article class="card workspace" id="espacio-trabajo" aria-labelledby="t-espacio" data-hu="HU-014">
+        <div class="workspace__head">
+          <h3 id="t-espacio">Espacio de trabajo (documento de prueba)</h3>
+          <button class="btn btn--outline btn--sm" id="btn-tarea-unica" type="button" aria-pressed="false">Vista de tarea única <kbd>Alt+Shift+F</kbd></button>
+        </div>
+        <label for="documento" class="sr-only">Documento de prueba</label>
+        <textarea id="documento" rows="10" spellcheck="false" autocomplete="off" placeholder="Escribe aquí cualquier texto de prueba. FocusSync no lo lee ni lo guarda.">Informe final, sección 3.2. Escribe o edita este texto para probar el monitoreo.</textarea>
+        <p class="muted small">Este texto vive solo en la memoria de esta pestaña. FocusSync nunca lo guarda ni lo envía.</p>
+        <div id="marcador-tarea" class="marker" hidden>
+          <button class="btn btn--primary" id="btn-volver-tarea" type="button" data-hu="HU-020">Volver a mi tarea pendiente</button>
+        </div>
+      </article>
+
+      <!-- Simulación -->
+      <article class="card" id="panel-simulacion" aria-labelledby="t-sim">
+        <h3 id="t-sim">Probar sin esperar horas</h3>
+        <p class="muted">Para la demostración puedes simular señales de sobrecarga sin tener que estresarte de verdad.</p>
+        <div class="btn-row">
+          <button class="btn btn--primary" id="btn-simular-alta" type="button">Simular sobrecarga</button>
+          <button class="btn btn--outline" id="btn-simular-normal" type="button">Volver a lo normal</button>
+        </div>
+        <p class="muted small">La simulación solo altera los números mostrados; nada se guarda ni se envía.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MODO ZEN ===================== -->
+<section class="section peripheral-soft" id="zen" aria-labelledby="titulo-zen">
+  <div class="container">
+    <h2 id="titulo-zen">Modo Zen: menos pantalla, más foco</h2>
+    <p class="section__intro">Reduce lo que distrae sin cerrar nada. Puedes entrar y salir cuando quieras.</p>
+    <div class="grid grid--3">
+      <article class="card" data-hu="HU-009">
+        <h3>Activación manual</h3>
+        <p>Usa el botón de la barra superior o el atajo <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd>. La pantalla se simplifica en medio segundo.</p>
+        <button class="btn btn--primary" id="btn-zen-seccion" type="button" aria-pressed="false">Activar Modo Zen</button>
+      </article>
+      <article class="card" data-hu="HU-011">
+        <h3>Atenuación de luz</h3>
+        <p>En Modo Zen la luz y el contraste bajan entre 10 % y 30 % de forma gradual (más de 10 s) con un filtro cálido.</p>
+        <p class="muted small" id="atenuacion-estado">Atenuación actual: 0 %</p>
+        <button class="btn btn--outline" id="btn-restaurar-brillo" type="button">Restaurar brillo estándar</button>
+      </article>
+      <article class="card" data-hu="HU-012">
+        <h3>Elementos periféricos</h3>
+        <p>Menús y paneles secundarios se repliegan a un ícono discreto y reaparecen suavemente al pasar el cursor o enfocarlos con el teclado.</p>
+        <p class="muted small" id="paneles-minimizados">Paneles minimizados: 0</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PAUSAS ===================== -->
+<section class="section" id="pausas" aria-labelledby="titulo-pausas">
+  <div class="container">
+    <h2 id="titulo-pausas">Micro-pausas que no te frustran</h2>
+    <p class="section__intro">Una invitación amable a respirar 60 segundos. Puedes tomarla, posponerla 15 minutos o saltarla.</p>
+    <div class="grid grid--2">
+      <article class="card" data-hu="HU-018">
+        <h3>Guía de respiración diafragmática</h3>
+        <p>Esfera guía: 4 s inhala, 2 s sostén, 6 s exhala, durante 60 s.</p>
+        <button class="btn btn--primary" id="btn-iniciar-pausa" type="button">Tomar pausa de 60 s</button>
+        <p class="muted small" id="estado-pausa" role="status"></p>
+      </article>
+      <article class="card" data-hu="HU-017">
+        <h3>Cómo te lo sugerimos</h3>
+        <ul class="list">
+          <li>Un globo translúcido en el margen, sin sonido y sin bloquear nada.</li>
+          <li>Dos opciones: <em>Tomar pausa (60 s)</em> o <em>Posponer (15 min)</em>.</li>
+          <li>Si lo ignoras, simplemente se desvanece.</li>
+          <li>Al saltar un ejercicio, no te molestamos durante 20 minutos.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ORGANIZACION ===================== -->
+<section class="section peripheral-soft" id="organizacion" aria-labelledby="titulo-org">
+  <div class="container">
+    <h2 id="titulo-org">Organiza sin abrumarte</h2>
+    <div class="grid grid--2">
+      <article class="card" id="card-hitos" data-hu="HU-026" aria-labelledby="t-hitos">
+        <h3 id="t-hitos">Fraccionar un entregable en micro-hitos</h3>
+        <form id="form-hitos" novalidate>
+          <div class="field">
+            <label for="h-nombre">Nombre del entregable</label>
+            <input type="text" id="h-nombre" name="nombre" autocomplete="off" required aria-describedby="h-nombre-err" placeholder="Ej.: Informe de laboratorio 5">
+            <p class="error" id="h-nombre-err" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="h-tipo">Tipo de trabajo</label>
+            <select id="h-tipo" name="tipo">
+              <option value="informe">Informe o ensayo</option>
+              <option value="programacion">Programación</option>
+              <option value="estudio">Preparar un examen</option>
+              <option value="proyecto">Proyecto grupal</option>
+            </select>
+          </div>
+          <button class="btn btn--primary" type="submit">Fraccionar en micro-hitos</button>
+        </form>
+        <div id="hitos-resultado" hidden>
+          <p class="muted small">Máximo 5 micro-hitos de menos de 45 minutos. Ajusta nombres y tiempos si lo necesitas.</p>
+          <ul class="hitos" id="lista-hitos"></ul>
+          <div class="progress-wrap">
+            <div class="meter" role="progressbar" aria-label="Progreso acumulado de micro-hitos" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="meter-hitos"><div class="meter__fill" id="hitos-fill"></div></div>
+            <span id="hitos-progreso-texto">0 de 0 completados</span>
+          </div>
+        </div>
+      </article>
+
+      <div class="stack">
+        <article class="card" id="card-timer" data-hu="HU-028" aria-labelledby="t-timer">
+          <h3 id="t-timer">Temporizador flexible</h3>
+          <div class="field field--inline">
+            <label for="meta-min">Meta de sesión (minutos)</label>
+            <input type="number" id="meta-min" min="45" max="90" step="5" value="45" inputmode="numeric">
+          </div>
+          <p class="timer" id="timer-display" aria-live="off">00:00</p>
+          <p class="muted small" id="timer-estado" role="status">Listo para empezar. Al llegar a la meta no se bloquea nada: sigues en positivo.</p>
+          <div class="btn-row">
+            <button class="btn btn--primary" id="btn-timer" type="button">Iniciar</button>
+            <button class="btn btn--outline" id="btn-timer-reset" type="button">Reiniciar</button>
+          </div>
+        </article>
+
+        <article class="card" id="card-notas" data-hu="HU-031" aria-labelledby="t-notas">
+          <h3 id="t-notas">Brain Dump: vacía tu mente</h3>
+          <p>Anota ideas intrusivas en segundos y vuelve a lo tuyo. Atajo: <kbd>Ctrl</kbd> + <kbd>J</kbd>. Se cierra con <kbd>Esc</kbd>.</p>
+          <button class="btn btn--outline" id="btn-abrir-notas" type="button">Abrir Brain Dump</button>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BIENESTAR ===================== -->
+<section class="section" id="bienestar" aria-labelledby="titulo-bien">
+  <div class="container">
+    <h2 id="titulo-bien">Tu bienestar, a tu ritmo</h2>
+    <div class="grid grid--2">
+      <article class="card" id="card-balance" data-hu="HU-035" aria-labelledby="t-balance">
+        <h3 id="t-balance">Tiempo de estudio frente a pausas</h3>
+        <fieldset class="filter">
+          <legend class="sr-only">Periodo del gráfico</legend>
+          <label><input type="radio" name="periodo" value="dia"> Día</label>
+          <label><input type="radio" name="periodo" value="semana" checked> Semana</label>
+          <label><input type="radio" name="periodo" value="mes"> Mes</label>
+        </fieldset>
+        <div id="grafico-balance" class="chart" role="img" aria-label="Gráfico de barras de minutos de estudio y de pausa"></div>
+        <ul class="legend" aria-hidden="true"><li><span class="swatch swatch--study"></span>Estudio</li><li><span class="swatch swatch--pause"></span>Pausas</li></ul>
+        <p class="balance" id="balance-indicador" role="status">Aún no hay datos. Usa la demo o carga datos de ejemplo.</p>
+        <p class="muted small">Referencia sugerida: al menos 10 minutos de pausa por cada 50 minutos de estudio (guía general, no clínica).</p>
+        <div class="btn-row">
+          <button class="btn btn--outline btn--sm" id="btn-datos-ejemplo" type="button">Cargar datos de ejemplo</button>
+        </div>
+      </article>
+
+      <div class="stack">
+        <article class="card" id="card-animo" data-hu="HU-036" aria-labelledby="t-animo">
+          <h3 id="t-animo">Cierra tu jornada</h3>
+          <button class="btn btn--primary" id="btn-cerrar-jornada" type="button">Cerrar jornada</button>
+          <div id="panel-animo" hidden>
+            <p id="animo-pregunta">¿Cómo te sientes después de estudiar?</p>
+            <div class="moods" role="group" aria-labelledby="animo-pregunta">
+              <button type="button" class="mood" data-mood="1"><span aria-hidden="true">😣</span><span>Agotado</span></button>
+              <button type="button" class="mood" data-mood="2"><span aria-hidden="true">😕</span><span>Cansado</span></button>
+              <button type="button" class="mood" data-mood="3"><span aria-hidden="true">😐</span><span>Neutral</span></button>
+              <button type="button" class="mood" data-mood="4"><span aria-hidden="true">🙂</span><span>Bien</span></button>
+              <button type="button" class="mood" data-mood="5"><span aria-hidden="true">😄</span><span>Muy bien</span></button>
+            </div>
+            <button type="button" class="btn btn--ghost" id="btn-omitir-animo">Omitir</button>
+          </div>
+          <p class="muted small" id="animo-confirmacion" role="status"></p>
+          <ol class="historial" id="historial-animo" aria-label="Historial de ánimo"></ol>
+        </article>
+
+        <article class="card" id="card-resumen" data-hu="HU-037" aria-labelledby="t-resumen">
+          <h3 id="t-resumen">Resumen de tus micro-pausas</h3>
+          <dl class="summary">
+            <div><dt>Ejercicios de respiración esta semana</dt><dd id="res-ejercicios">0</dd></div>
+            <div><dt>Minutos acumulados en calma</dt><dd id="res-minutos">0</dd></div>
+          </dl>
+          <p class="note" id="res-mensaje">Cada pausa cuenta. Cuando quieras, aquí verás tu progreso.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRIVACIDAD ===================== -->
+<section class="section peripheral-soft" id="privacidad" aria-labelledby="titulo-priv">
+  <div class="container">
+    <h2 id="titulo-priv">Privacidad y ética: tus datos son tuyos</h2>
+    <div class="grid grid--2">
+      <article class="card" data-hu="HU-044" aria-labelledby="t-manifiesto">
+        <h3 id="t-manifiesto">Manifiesto de privacidad</h3>
+        <ul class="list">
+          <li><strong>No guardamos lo que escribes.</strong> Medimos intervalos y si hubo un borrado, nunca la tecla ni el texto.</li>
+          <li><strong>Todo ocurre en tu navegador.</strong> No hay servidor, ni cuentas, ni envíos.</li>
+          <li><strong>Los atajos de teclado</strong> solo reconocen combinaciones con Ctrl o Alt y la tecla Esc; el resto de teclas no se interpreta.</li>
+        </ul>
+        <p class="indicator" data-hu="HU-043" aria-live="polite">Solicitudes de red realizadas por la demo: <strong id="net-count">0</strong></p>
+        <details class="inspector">
+          <summary>Ver exactamente qué se guarda en tu dispositivo</summary>
+          <pre id="inspector-datos" tabindex="0">{}</pre>
+        </details>
+      </article>
+
+      <article class="card" data-hu="HU-048" aria-labelledby="t-etica">
+        <h3 id="t-etica">Compromiso ético con tu autonomía</h3>
+        <div class="table-wrap">
+          <table>
+            <caption class="sr-only">Quién puede ver tus datos de uso</caption>
+            <thead><tr><th scope="col">Quién</th><th scope="col">Acceso a tus métricas</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Tú</th><td>Todo, siempre</td></tr>
+              <tr><th scope="row">Docentes y tutores</th><td>Ninguno: no existe un panel de supervisión</td></tr>
+              <tr><th scope="row">Equipo de FocusSync</th><td>Ninguno: no hay servidor</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>FocusSync no genera reportes individuales para terceros. Docentes y tutores pueden recomendarlo como herramienta de autocuidado, nunca como vigilancia.</p>
+      </article>
+
+      <article class="card" id="card-examen" data-hu="HU-047" aria-labelledby="t-examen">
+        <h3 id="t-examen">Modo Examen</h3>
+        <p>Durante una evaluación en línea, FocusSync deja de sugerir cualquier cosa. Se desactiva solo al terminar el tiempo.</p>
+        <div class="field field--inline">
+          <label for="examen-min">Duración</label>
+          <select id="examen-min">
+            <option value="30">30 minutos</option>
+            <option value="60">60 minutos</option>
+            <option value="90">90 minutos</option>
+            <option value="120" selected>120 minutos</option>
+          </select>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn--primary" id="btn-examen" type="button" aria-pressed="false">Activar Modo Examen</button>
+        </div>
+        <p class="muted small" id="examen-estado" role="status"></p>
+      </article>
+
+      <article class="card" id="card-borrar" data-hu="HU-045" aria-labelledby="t-borrar">
+        <h3 id="t-borrar">Control total de tu historial</h3>
+        <p>Si compartes equipo, puedes eliminar todo tu historial de métricas, sesiones, ánimo, notas y preferencias con un solo botón.</p>
+        <button class="btn btn--danger" id="btn-borrar" type="button">Borrar todos mis datos de estudio</button>
+        <p class="muted small" id="borrar-estado" role="status"></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACTO ===================== -->
+<section class="section" id="contacto" aria-labelledby="titulo-contacto">
+  <div class="container container--narrow">
+    <h2 id="titulo-contacto">Quiero saber cuándo esté disponible</h2>
+    <p class="section__intro">Déjanos tu correo. Esta demo no lo envía a ningún lado: solo valida el formulario en tu navegador.</p>
+    <form id="form-contacto" class="card" novalidate>
+      <div class="field">
+        <label for="c-nombre">Nombre completo</label>
+        <input type="text" id="c-nombre" name="nombre" autocomplete="name" required aria-describedby="c-nombre-err">
+        <p class="error" id="c-nombre-err" role="alert" hidden></p>
+      </div>
+      <div class="field">
+        <label for="c-correo">Correo electrónico</label>
+        <input type="email" id="c-correo" name="correo" autocomplete="email" required aria-describedby="c-correo-err">
+        <p class="error" id="c-correo-err" role="alert" hidden></p>
+      </div>
+      <div class="field">
+        <label for="c-segmento">¿Cómo te identificas?</label>
+        <select id="c-segmento" name="segmento" required aria-describedby="c-segmento-err">
+          <option value="">Selecciona una opción</option>
+          <option value="s1">Estudio carreras con mucha carga en computadora</option>
+          <option value="s2">Siento ansiedad o bloqueo frente a plazos y exámenes</option>
+          <option value="s3">Soy docente, tutor o asesor académico</option>
+        </select>
+        <p class="error" id="c-segmento-err" role="alert" hidden></p>
+      </div>
+      <button class="btn btn--primary" type="submit">Enviar mi interés</button>
+      <p class="success" id="c-exito" role="status" hidden></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" id="pie" role="contentinfo">
+  <div class="container footer__inner">
+    <p><strong>FocusSync</strong> · CogniFlow Systems · HCI for UX Design (UPC) · Grupo 5</p>
+    <p class="muted small">Demo académica. Procesamiento 100 % local, sin captura de texto, sin vigilancia.</p>
+  </div>
+</footer>
+
+<!-- ===================== OVERLAYS ===================== -->
+<div class="toast-zone" id="zona-sugerencias" aria-live="polite" aria-atomic="true"></div>
+
+<div class="dialog-backdrop" id="dlg-pausa" hidden>
+  <div class="dialog dialog--pausa" role="dialog" aria-modal="true" aria-labelledby="pausa-titulo" aria-describedby="pausa-desc" data-hu="HU-018">
+    <h2 id="pausa-titulo">Micro-pausa de respiración</h2>
+    <p id="pausa-desc" class="sr-only">Sigue la esfera: inhala 4 segundos, sostén 2 y exhala 6. La pausa dura 60 segundos y puedes saltarla.</p>
+    <div class="breath" id="breath">
+      <svg class="breath__timer" viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="breath__track" cx="60" cy="60" r="54"/>
+        <circle class="breath__progress" id="breath-progress" cx="60" cy="60" r="54"/>
+      </svg>
+      <div class="breath__sphere" id="breath-sphere" aria-hidden="true"></div>
+      <div class="breath__text">
+        <span class="breath__phase" id="breath-fase" aria-live="polite">Prepárate</span>
+        <span class="breath__time" id="breath-tiempo">01:00</span>
+      </div>
+    </div>
+    <div class="btn-row btn-row--center">
+      <button class="btn btn--outline" id="btn-saltar" type="button" data-hu="HU-021">Saltar ejercicio</button>
+    </div>
+  </div>
+</div>
+
+<div class="dialog-backdrop dialog-backdrop--light" id="dlg-notas" hidden>
+  <div class="dialog dialog--notas" role="dialog" aria-modal="false" aria-labelledby="notas-titulo">
+    <div class="dialog__head">
+      <h2 id="notas-titulo">Brain Dump</h2>
+      <button class="btn btn--ghost btn--sm" id="btn-cerrar-notas" type="button" aria-label="Cerrar Brain Dump (Esc)">Cerrar <kbd>Esc</kbd></button>
+    </div>
+    <label for="notas-texto" class="sr-only">Notas rápidas</label>
+    <textarea id="notas-texto" rows="6" placeholder="Anota la idea y vuelve a lo tuyo. Se guarda sola, solo en tu dispositivo."></textarea>
+    <p class="muted small" id="notas-estado" role="status">Guardado automático local.</p>
+  </div>
+</div>
+
+<div class="dialog-backdrop" id="dlg-borrar" hidden>
+  <div class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="borrar-titulo" aria-describedby="borrar-desc">
+    <h2 id="borrar-titulo">¿Borrar todos tus datos?</h2>
+    <p id="borrar-desc">Se eliminarán métricas, sesiones, ánimo, notas y preferencias guardadas en este dispositivo. No se puede deshacer.</p>
+    <div class="btn-row">
+      <button class="btn btn--danger" id="btn-borrar-ok" type="button">Sí, borrar todo</button>
+      <button class="btn btn--outline" id="btn-borrar-cancel" type="button">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="sr-only" id="anuncios" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "focussync-pruebas-aceptacion",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Pruebas de aceptacion automatizadas de la landing page FocusSync (30 HU core)",
+  "scripts": { "test": "node acceptance.test.js" },
+  "devDependencies": { "puppeteer": "^22.0.0", "axe-core": "^4.9.0" }
+}
